@@ -42,12 +42,30 @@ newsGrid.innerHTML+=`
 
 </div>
 
-`
+`fetch("/articles")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("news-container");
+    data.forEach(article => {
+      const card = document.createElement("div");
+      card.classList.add("news-card");
+
+      card.innerHTML = `
+        <img src="${article.image}" alt="">
+        <h3>${article.title}</h3>
+        <p>${article.content.substring(0,100)}...</p>
+        <a href="article.html?id=${article.id}">Read More</a>
+      `;
+
+      container.appendChild(card);
+    });
+  });
 
 })
 
 function toggleDark(){
 
 document.body.classList.toggle("dark")
+
 
 }
