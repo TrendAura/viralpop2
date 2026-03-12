@@ -31,7 +31,39 @@ padding:0;
 box-sizing:border-box;
 font-family:Arial, Helvetica, sans-serif;
 }
+<script>
+async function loadNews() {
 
+    const url = "https://api.spaceflightnewsapi.net/v4/articles/";
+
+    try {
+        const response = await fetch(url);
+        const result = await response.json();
+
+        const container = document.getElementById("news-container");
+
+        result.results.slice(0,6).forEach(article => {
+
+            const card = document.createElement("div");
+            card.className = "news-card";
+
+            card.innerHTML = `
+                <img src="${article.image_url}">
+                <h3>${article.title}</h3>
+                <p>${article.summary.substring(0,120)}...</p>
+                <a href="${article.url}" target="_blank">Read Full Article</a>
+            `;
+
+            container.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("News failed to load:", error);
+    }
+}
+
+loadNews();
+</script>
 body{
 background:hsla(0, 100%, 100%, 0.918);
 transition:0.3s;
@@ -342,6 +374,7 @@ article.style.display=text.includes(input) ? "block":"none";
 </body>
 
 </html>
+
 
 
 
