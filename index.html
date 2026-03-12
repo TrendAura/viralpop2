@@ -1,12 +1,18 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Trendaura | Viral & Trending News</title>
 
-<meta name="description" content="Trendaura delivers trending viral news, technology, celebrity and entertainment stories from around the world.">
+<meta name="description" content="Trendaura delivers trending celebrity news, viral internet stories, tech updates, crypto news and lifestyle content.">
+
+<!-- SEO -->
+<meta name="keywords" content="celebrity news, viral news, trending news, crypto news, tech news, tiktok trends">
+<meta name="author" content="Trendaura">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
@@ -35,7 +41,7 @@ font-size:22px;
 font-weight:600;
 }
 
-/* NAVIGATION */
+/* NAV */
 
 nav{
 display:flex;
@@ -44,16 +50,17 @@ flex-wrap:wrap;
 
 nav a{
 color:white;
-margin:8px;
+margin:6px;
 text-decoration:none;
 font-weight:500;
+cursor:pointer;
 }
 
 nav a:hover{
 color:#00bcd4;
 }
 
-/* SEARCH BAR */
+/* SEARCH */
 
 .search-bar{
 text-align:center;
@@ -135,22 +142,14 @@ border-radius:10px;
 box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
-.sidebar h3{
-margin-top:0;
-}
-
 .trend{
-margin-bottom:12px;
-font-size:14px;
+margin-bottom:10px;
 border-bottom:1px solid #eee;
-padding-bottom:8px;
+padding-bottom:6px;
+font-size:14px;
 }
 
-/* VIDEO SECTION */
-
-.videos{
-margin-top:20px;
-}
+/* VIDEO */
 
 iframe{
 width:100%;
@@ -195,20 +194,20 @@ width:90%;
 <body>
 
 <header>
+
 <div class="logo">Trendaura</div>
 
 <nav>
-<a href="#" onclick="loadCategory('all')">Home</a>
-<a href="#" onclick="loadCategory('celebrity')">Celebrities</a>
-<a href="#" onclick="loadCategory('tiktok')">TikTokers</a>
-<a href="#" onclick="loadCategory('fashion')">Fashion</a>
-<a href="#" onclick="loadCategory('tech')">Technology</a>
-<a href="#" onclick="loadCategory('crypto')">Crypto</a>
-<a href="#" onclick="loadCategory('finance')">Finance</a>
-<a href="#" onclick="loadCategory('health')">Health</a>
-<a href="#" onclick="loadCategory('law')">Law</a>
-<a href="#" onclick="loadCategory('lifestyle')">Lifestyle</a>
-<a href="#" onclick="toggleDark()">🌙</a>
+<a onclick="loadCategory('all')">Home</a>
+<a onclick="loadCategory('celebrity')">Celebrities</a>
+<a onclick="loadCategory('tiktok')">TikTok</a>
+<a onclick="loadCategory('fashion')">Fashion</a>
+<a onclick="loadCategory('technology')">Technology</a>
+<a onclick="loadCategory('crypto')">Crypto</a>
+<a onclick="loadCategory('finance')">Finance</a>
+<a onclick="loadCategory('health')">Health</a>
+<a onclick="loadCategory('law')">Law</a>
+<a onclick="toggleDark()">🌙</a>
 </nav>
 
 </header>
@@ -223,23 +222,19 @@ width:90%;
 
 <div class="sidebar">
 
-<h3>🔥 Trending Topics</h3>
+<h3>🔥 Trending</h3>
 
 <div class="trend">Celebrity Breakups</div>
-<div class="trend">TikTok Viral Challenges</div>
-<div class="trend">Crypto Market Updates</div>
+<div class="trend">TikTok Challenges</div>
+<div class="trend">Crypto Market</div>
 <div class="trend">AI Technology</div>
-<div class="trend">Fashion Trends</div>
-
-<div class="videos">
+<div class="trend">Fashion Models</div>
 
 <h3>📺 Trending Video</h3>
 
 <iframe height="200"
-src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+src="https://www.youtube.com/embed/3JZ_D3ELwOQ"
 allowfullscreen></iframe>
-
-</div>
 
 </div>
 
@@ -253,22 +248,26 @@ allowfullscreen></iframe>
 
 /* STORE ARTICLES */
 
-let articlesData = [];
+let articlesData=[];
 
-/* LOAD NEWS */
+/* LOAD MULTIPLE NEWS SOURCES */
 
 function loadNews(){
 
-fetch("https://api.spaceflightnewsapi.net/v4/articles/")
-.then(response => response.json())
-.then(data => {
+Promise.all([
 
-articlesData = data.results;
+fetch("https://api.spaceflightnewsapi.net/v4/articles/").then(r=>r.json()),
+fetch("https://api.spaceflightnewsapi.net/v4/blogs/").then(r=>r.json())
+
+])
+.then(results=>{
+
+articlesData=[...results[0].results,...results[1].results];
 
 displayArticles(articlesData);
 
 })
-.catch(error => {
+.catch(()=>{
 
 document.getElementById("news-container").innerText="Failed to load news";
 
@@ -344,25 +343,24 @@ function toggleDark(){
 document.body.classList.toggle("dark");
 }
 
-/* AUTO REFRESH NEWS EVERY HOUR */
+/* AUTO REFRESH NEWS */
 
 setInterval(loadNews,3600000);
 
 /* REFRESH VIDEO EVERY 30 MINUTES */
 
 setInterval(()=>{
+
 document.querySelector("iframe").src=
-"https://www.youtube.com/embed/dQw4w9WgXcQ";
+"https://www.youtube.com/embed/"+Math.random().toString(36).substring(7);
+
 },1800000);
 
 </script>
 
 </body>
 </html>
-
-
-
-
+```
 
 
 
