@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<<style>
+#news-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    gap: 20px;
+}
+
+.news-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    background: white;
+}
+
+.news-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+</style>>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trending Buzz</title>
@@ -324,5 +342,6 @@ article.style.display=text.includes(input) ? "block":"none";
 </body>
 
 </html>
+
 
 
