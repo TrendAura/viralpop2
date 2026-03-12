@@ -6,7 +6,7 @@
 
 <title>Trendaura | Viral & Trending News</title>
 
-<meta name="description" content="Trendaura delivers trending viral news, technology and entertainment stories from around the world.">
+<meta name="description" content="Trendaura delivers trending viral news, technology, celebrity and entertainment stories from around the world.">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
@@ -27,6 +27,7 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding:15px 30px;
+flex-wrap:wrap;
 }
 
 .logo{
@@ -34,9 +35,16 @@ font-size:22px;
 font-weight:600;
 }
 
+/* NAVIGATION */
+
+nav{
+display:flex;
+flex-wrap:wrap;
+}
+
 nav a{
 color:white;
-margin-left:20px;
+margin:8px;
 text-decoration:none;
 font-weight:500;
 }
@@ -138,6 +146,18 @@ border-bottom:1px solid #eee;
 padding-bottom:8px;
 }
 
+/* VIDEO SECTION */
+
+.videos{
+margin-top:20px;
+}
+
+iframe{
+width:100%;
+border:none;
+border-radius:10px;
+}
+
 /* FOOTER */
 
 footer{
@@ -146,6 +166,13 @@ color:white;
 text-align:center;
 padding:25px;
 margin-top:40px;
+}
+
+/* DARK MODE */
+
+.dark{
+background:#121212;
+color:white;
 }
 
 /* MOBILE */
@@ -171,12 +198,19 @@ width:90%;
 <div class="logo">Trendaura</div>
 
 <nav>
-<a href="#">Home</a>
-<a href="#">Trending</a>
-<a href="#">Tech</a>
-<a href="#">Entertainment</a>
-<a href="#">Contact</a>
+<a href="#" onclick="loadCategory('all')">Home</a>
+<a href="#" onclick="loadCategory('celebrity')">Celebrities</a>
+<a href="#" onclick="loadCategory('tiktok')">TikTokers</a>
+<a href="#" onclick="loadCategory('fashion')">Fashion</a>
+<a href="#" onclick="loadCategory('tech')">Technology</a>
+<a href="#" onclick="loadCategory('crypto')">Crypto</a>
+<a href="#" onclick="loadCategory('finance')">Finance</a>
+<a href="#" onclick="loadCategory('health')">Health</a>
+<a href="#" onclick="loadCategory('law')">Law</a>
+<a href="#" onclick="loadCategory('lifestyle')">Lifestyle</a>
+<a href="#" onclick="toggleDark()">🌙</a>
 </nav>
+
 </header>
 
 <div class="search-bar">
@@ -188,13 +222,24 @@ width:90%;
 <div id="news-container">Loading news...</div>
 
 <div class="sidebar">
-<h3>🔥 Trending</h3>
 
-<div class="trend">AI Technology Updates</div>
-<div class="trend">Space Missions</div>
-<div class="trend">Viral Internet Stories</div>
-<div class="trend">Tech Innovations</div>
-<div class="trend">Global Science News</div>
+<h3>🔥 Trending Topics</h3>
+
+<div class="trend">Celebrity Breakups</div>
+<div class="trend">TikTok Viral Challenges</div>
+<div class="trend">Crypto Market Updates</div>
+<div class="trend">AI Technology</div>
+<div class="trend">Fashion Trends</div>
+
+<div class="videos">
+
+<h3>📺 Trending Video</h3>
+
+<iframe height="200"
+src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+allowfullscreen></iframe>
+
+</div>
 
 </div>
 
@@ -206,7 +251,13 @@ width:90%;
 
 <script>
 
+/* STORE ARTICLES */
+
 let articlesData = [];
+
+/* LOAD NEWS */
+
+function loadNews(){
 
 fetch("https://api.spaceflightnewsapi.net/v4/articles/")
 .then(response => response.json())
@@ -223,6 +274,10 @@ document.getElementById("news-container").innerText="Failed to load news";
 
 });
 
+}
+
+loadNews();
+
 /* DISPLAY ARTICLES */
 
 function displayArticles(articles){
@@ -231,7 +286,7 @@ const container=document.getElementById("news-container");
 
 container.innerHTML="";
 
-articles.slice(0,8).forEach(article=>{
+articles.slice(0,12).forEach(article=>{
 
 const div=document.createElement("div");
 
@@ -241,7 +296,7 @@ div.innerHTML=`
 <img src="${article.image_url}">
 <div class="card-content">
 <h3>${article.title}</h3>
-<p>${article.summary.substring(0,100)}...</p>
+<p>${article.summary.substring(0,120)}...</p>
 <a href="${article.url}" target="_blank">Read More</a>
 </div>
 `;
@@ -252,26 +307,59 @@ container.appendChild(div);
 
 }
 
-/* SEARCH FUNCTION */
+/* SEARCH */
 
 document.getElementById("searchInput").addEventListener("input",function(){
 
 const keyword=this.value.toLowerCase();
 
-const filtered=articlesData.filter(article=>
-
+const filtered=articlesData.filter(article =>
 article.title.toLowerCase().includes(keyword)
-
 );
 
 displayArticles(filtered);
 
 });
 
+/* CATEGORY FILTER */
+
+function loadCategory(category){
+
+if(category==="all"){
+displayArticles(articlesData);
+return;
+}
+
+const filtered=articlesData.filter(article =>
+article.title.toLowerCase().includes(category)
+);
+
+displayArticles(filtered);
+
+}
+
+/* DARK MODE */
+
+function toggleDark(){
+document.body.classList.toggle("dark");
+}
+
+/* AUTO REFRESH NEWS EVERY HOUR */
+
+setInterval(loadNews,3600000);
+
+/* REFRESH VIDEO EVERY 30 MINUTES */
+
+setInterval(()=>{
+document.querySelector("iframe").src=
+"https://www.youtube.com/embed/dQw4w9WgXcQ";
+},1800000);
+
 </script>
 
 </body>
 </html>
+
 
 
 
