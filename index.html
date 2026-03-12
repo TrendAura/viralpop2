@@ -4,14 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Trendaura | Viral & Trending News</title>
-<meta name="description" content="Trending celebrity news, TikTok challenges, crypto, tech, finance, lifestyle and viral stories.">
-
-<!-- SEO -->
-<meta property="og:title" content="Trendaura Viral News">
-<meta property="og:description" content="Discover trending celebrity news, viral stories and tech updates.">
-<meta property="og:type" content="website">
+<title>Trendaura | Viral News</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
@@ -21,7 +14,6 @@ body{
 font-family:'Poppins',sans-serif;
 margin:0;
 background:#f5f5f5;
-color:#222;
 }
 
 /* HEADER */
@@ -31,65 +23,33 @@ background:#111;
 color:white;
 display:flex;
 justify-content:space-between;
-align-items:center;
 padding:15px 25px;
 flex-wrap:wrap;
 }
 
-.logo{
-font-size:22px;
-font-weight:600;
-}
-
-nav{
-display:flex;
-flex-wrap:wrap;
-}
+.logo{font-weight:600;font-size:22px;}
 
 nav a{
 color:white;
 margin:6px;
+cursor:pointer;
 text-decoration:none;
 font-size:14px;
-cursor:pointer;
 }
 
-nav a:hover{
-color:#00bcd4;
-}
-
-/* BREAKING NEWS */
-
-.ticker{
-background:#ff3b3b;
-color:white;
-padding:8px;
-overflow:hidden;
-white-space:nowrap;
-}
-
-.ticker span{
-padding-right:40px;
-animation:scroll 25s linear infinite;
-}
-
-@keyframes scroll{
-0%{transform:translateX(100%)}
-100%{transform:translateX(-100%)}
-}
+nav a:hover{color:#00bcd4}
 
 /* SEARCH */
 
 .search-bar{
-background:white;
-padding:20px;
 text-align:center;
+padding:20px;
+background:white;
 }
 
 .search-bar input{
 width:60%;
 padding:10px;
-font-size:16px;
 border-radius:6px;
 border:1px solid #ccc;
 }
@@ -103,11 +63,11 @@ gap:25px;
 padding:25px;
 }
 
-/* NEWS GRID */
+/* GRID */
 
 #news-container{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:20px;
 }
 
@@ -117,12 +77,7 @@ gap:20px;
 background:white;
 border-radius:10px;
 overflow:hidden;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
 .card img{
@@ -131,25 +86,11 @@ height:170px;
 object-fit:cover;
 }
 
-.card-content{
-padding:15px;
-}
+.card-content{padding:15px;}
 
-.card h3{
-font-size:17px;
-margin:0 0 8px;
-}
+.card h3{margin:0 0 10px;}
 
-.card p{
-font-size:14px;
-color:#666;
-}
-
-.card a{
-color:#2196f3;
-font-weight:bold;
-text-decoration:none;
-}
+.card p{font-size:14px;color:#555}
 
 /* SIDEBAR */
 
@@ -157,56 +98,18 @@ text-decoration:none;
 background:white;
 padding:15px;
 border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
-
-.trend{
-font-size:14px;
-border-bottom:1px solid #eee;
-padding:6px 0;
-}
-
-/* VIDEO */
-
-iframe{
-width:100%;
-border:none;
-border-radius:10px;
-}
-
-/* CRYPTO */
-
-.crypto{
-font-size:14px;
-margin-top:10px;
-}
-
-/* FOOTER */
 
 footer{
 background:#111;
 color:white;
 text-align:center;
-padding:25px;
-margin-top:40px;
+padding:20px;
 }
-
-/* DARK MODE */
-
-.dark{
-background:#121212;
-color:white;
-}
-
-/* MOBILE */
 
 @media(max-width:900px){
-.container{
-grid-template-columns:1fr;
-}
-.search-bar input{
-width:90%;
-}
+.container{grid-template-columns:1fr}
+.search-bar input{width:90%}
 }
 
 </style>
@@ -219,25 +122,18 @@ width:90%;
 <div class="logo">Trendaura</div>
 
 <nav>
-<a onclick="loadCategory('all')">Home</a>
-<a onclick="loadCategory('celebrity')">Celebrities</a>
-<a onclick="loadCategory('tiktok')">TikTok</a>
-<a onclick="loadCategory('models')">Models</a>
-<a onclick="loadCategory('fashion')">Fashion</a>
-<a onclick="loadCategory('technology')">Technology</a>
-<a onclick="loadCategory('crypto')">Crypto</a>
-<a onclick="loadCategory('finance')">Finance</a>
-<a onclick="loadCategory('health')">Health</a>
-<a onclick="loadCategory('law')">Law</a>
-<a onclick="loadCategory('lifestyle')">Lifestyle</a>
-<a onclick="toggleDark()">🌙</a>
+<a onclick="showCategory('all')">Home</a>
+<a onclick="showCategory('celebrity')">Celebrities</a>
+<a onclick="showCategory('tiktok')">TikTok</a>
+<a onclick="showCategory('fashion')">Fashion</a>
+<a onclick="showCategory('crypto')">Crypto</a>
+<a onclick="showCategory('technology')">Technology</a>
+<a onclick="showCategory('finance')">Finance</a>
+<a onclick="showCategory('health')">Health</a>
+<a onclick="showCategory('lifestyle')">Lifestyle</a>
 </nav>
 
 </header>
-
-<div class="ticker">
-<span>🔥 Celebrity breakup trending • TikTok challenge viral • Crypto market moves • AI technology updates • Fashion week highlights</span>
-</div>
 
 <div class="search-bar">
 <input type="text" id="searchInput" placeholder="Search news...">
@@ -245,90 +141,141 @@ width:90%;
 
 <div class="container">
 
-<div id="news-container">Loading news...</div>
+<div id="news-container"></div>
 
 <div class="sidebar">
 
-<h3>🔥 Trending</h3>
+<h3>🔥 Trending Topics</h3>
 
-<div class="trend">Celebrity Breakups</div>
-<div class="trend">TikTok Dance Challenges</div>
-<div class="trend">Fashion Models</div>
-<div class="trend">Crypto Markets</div>
-<div class="trend">AI Technology</div>
-
-<h3>📺 Viral Video</h3>
-
-<iframe id="videoFrame" height="200" allowfullscreen></iframe>
-
-<h3>💰 Crypto Prices</h3>
-
-<div class="crypto" id="crypto"></div>
+<div>Celebrity Breakups</div>
+<div>TikTok Challenges</div>
+<div>Crypto Markets</div>
+<div>Fashion Models</div>
+<div>AI Technology</div>
 
 </div>
 
 </div>
 
 <footer>
-<p>© 2026 Trendaura | Viral News Platform</p>
+© 2026 Trendaura
 </footer>
 
 <script>
 
-/* NEWS STORAGE */
+/* SAMPLE ARTICLES FOR ALL CATEGORIES */
 
-let articlesData=[];
+let articles=[
 
-/* LOAD NEWS */
+{
+title:"Celebrity Breakup Shocks Fans",
+category:"celebrity",
+image:"https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+text:"Fans react to a shocking celebrity breakup trending online."
+},
 
-function loadNews(){
+{
+title:"New TikTok Dance Challenge Goes Viral",
+category:"tiktok",
+image:"https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
+text:"Millions join a viral TikTok dance trend."
+},
 
-fetch("https://api.spaceflightnewsapi.net/v4/articles/")
-.then(r=>r.json())
-.then(data=>{
+{
+title:"Fashion Models Take Over Paris",
+category:"fashion",
+image:"https://images.unsplash.com/photo-1490481651871-ab68de25d43d",
+text:"Paris fashion week highlights stunning runway looks."
+},
 
-articlesData=data.results;
+{
+title:"Bitcoin Surges Again",
+category:"crypto",
+image:"https://images.unsplash.com/photo-1621761191319-c6fb62004040",
+text:"Crypto markets surge as Bitcoin rises."
+},
 
-displayArticles(articlesData);
+{
+title:"AI Technology Changing the World",
+category:"technology",
+image:"https://images.unsplash.com/photo-1518770660439-4636190af475",
+text:"Artificial intelligence continues to disrupt industries."
+},
 
-})
+{
+title:"Finance Tips for 2026",
+category:"finance",
+image:"https://images.unsplash.com/photo-1554224155-6726b3ff858f",
+text:"Experts share smart money strategies."
+},
 
-.catch(()=>{
+{
+title:"Healthy Lifestyle Trends",
+category:"health",
+image:"https://images.unsplash.com/photo-1490645935967-10de6ba17061",
+text:"Nutrition and wellness trends growing worldwide."
+},
 
-document.getElementById("news-container").innerText="Failed to load news";
+{
+title:"Luxury Lifestyle Rising",
+category:"lifestyle",
+image:"https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+text:"Luxury travel and lifestyle trends increase."
+}
+
+]
+
+displayArticles(articles)
+
+/* DISPLAY */
+
+function displayArticles(data){
+
+const container=document.getElementById("news-container")
+
+container.innerHTML=""
+
+data.forEach((a,index)=>{
+
+container.innerHTML+=`
+
+<div class="card">
+
+<img src="${a.image}">
+
+<div class="card-content">
+
+<h3>${a.title}</h3>
+
+<p>${a.text}</p>
+
+<a href="article.html?id=${index}">Read More</a>
+
+</div>
+
+</div>
+
+`
 
 })
 
 }
 
-loadNews();
+/* CATEGORY */
 
-/* DISPLAY ARTICLES */
+function showCategory(category){
 
-function displayArticles(articles){
+if(category==="all"){
 
-const container=document.getElementById("news-container");
+displayArticles(articles)
 
-container.innerHTML="";
+return
 
-articles.slice(0,12).forEach(article=>{
+}
 
-const card=document.createElement("div");
+const filtered=articles.filter(a=>a.category===category)
 
-card.className="card";
-
-card.innerHTML=`
-<img src="${article.image_url}">
-<div class="card-content">
-<h3>${article.title}</h3>
-<p>${article.summary.substring(0,120)}...</p>
-<a href="${article.url}" target="_blank">Read More</a>
-</div>
-`;
-
-container.appendChild(card);
-
-})
+displayArticles(filtered)
 
 }
 
@@ -336,77 +283,19 @@ container.appendChild(card);
 
 document.getElementById("searchInput").addEventListener("input",function(){
 
-const keyword=this.value.toLowerCase();
+const keyword=this.value.toLowerCase()
 
-const filtered=articlesData.filter(article =>
-article.title.toLowerCase().includes(keyword)
-);
+const filtered=articles.filter(a=>
 
-displayArticles(filtered);
+a.title.toLowerCase().includes(keyword) ||
 
-});
+a.text.toLowerCase().includes(keyword)
 
-/* CATEGORY FILTER */
+)
 
-function loadCategory(category){
+displayArticles(filtered)
 
-if(category==="all"){
-displayArticles(articlesData);
-return;
-}
-
-const filtered=articlesData.filter(article =>
-article.title.toLowerCase().includes(category)
-);
-
-displayArticles(filtered);
-
-}
-
-/* DARK MODE */
-
-function toggleDark(){
-document.body.classList.toggle("dark");
-}
-
-/* AUTO REFRESH NEWS */
-
-setInterval(loadNews,3600000);
-
-/* VIDEO ROTATION */
-
-function loadVideo(){
-
-const vids=[
-"3JZ_D3ELwOQ",
-"LXb3EKWsInQ",
-"kJQP7kiw5Fk",
-"dQw4w9WgXcQ"
-];
-
-const random=vids[Math.floor(Math.random()*vids.length)];
-
-document.getElementById("videoFrame").src=
-"https://www.youtube.com/embed/"+random;
-
-}
-
-loadVideo();
-
-setInterval(loadVideo,1800000);
-
-/* CRYPTO API */
-
-fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd")
-.then(res=>res.json())
-.then(data=>{
-
-document.getElementById("crypto").innerHTML=`
-Bitcoin: $${data.bitcoin.usd}<br>
-Ethereum: $${data.ethereum.usd}
-`;
-
-});
+})
 
 </script>
 
