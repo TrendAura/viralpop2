@@ -95,7 +95,7 @@ function displayArticles(data){
 }
 
 /* ---------- NEWS API SETUP ---------- */
-const apiKey = "89a3ba312d4b429d9740e60acb7e5b69"; // use one of your API keys
+const apiKey = "89a3ba312d4b429d9740e60acb7e5b69"; // Your NewsAPI key
 const apiBase = "https://newsapi.org/v2/top-headlines?country=us&pageSize=20&apiKey=" + apiKey;
 
 let currentArticles = []; // stores the latest articles (API or fallback)
@@ -111,7 +111,6 @@ async function loadNews(category="general"){
       currentArticles = data.articles;
       displayArticles(currentArticles);
     } else {
-      console.log("API returned no articles, using fallback.");
       currentArticles = fallbackArticles;
       displayArticles(currentArticles);
     }
