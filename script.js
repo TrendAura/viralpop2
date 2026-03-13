@@ -1,54 +1,47 @@
 const posts = [
+  {
+    title:"📱 New TikTok Trend Taking Over",
+    text:"A new challenge is spreading across social media.",
+    img:"https://picsum.photos/400/200?1"
+  },
+  {
+    title:"⭐ Celebrity Breakup Shocks Fans",
+    text:"Fans react to shocking celebrity relationship news.",
+    img:"https://picsum.photos/400/200?2"
+  },
+  {
+    title:"🎬 New Movie Trailer Trends Worldwide",
+    text:"A blockbuster trailer dominates social media.",
+    img:"https://picsum.photos/400/200?3"
+  },
+  {
+    title:"🎵 Viral Song Breaks Streaming Records",
+    text:"A new song is dominating TikTok and Spotify.",
+    img:"https://picsum.photos/400/200?4"
+  }
+];
 
-{
-title:"📱 New TikTok Trend Taking Over",
-text:"A new challenge is spreading across social media.",
-img:"https://picsum.photos/400/200?1"
-},
+const newsGrid = document.getElementById("newsGrid");
 
-{
-title:"⭐ Celebrity Breakup Shocks Fans",
-text:"Fans react to shocking celebrity relationship news.",
-img:"https://picsum.photos/400/200?2"
-},
+// Render local static posts first
+posts.forEach(post => {
+  newsGrid.innerHTML += `
+    <div class="article">
+      <img src="${post.img}" alt="">
+      <h3>${post.title}</h3>
+      <p>${post.text}</p>
+    </div>
+  `;
+});
 
-{
-title:"🎬 New Movie Trailer Trends Worldwide",
-text:"A blockbuster trailer dominates social media.",
-img:"https://picsum.photos/400/200?3"
-},
-
-{
-title:"🎵 Viral Song Breaks Streaming Records",
-text:"A new song is dominating TikTok and Spotify.",
-img:"https://picsum.photos/400/200?4"
-}
-
-]
-
-const newsGrid = document.getElementById("newsGrid")
-
-posts.forEach(post=>{
-
-newsGrid.innerHTML+=`
-
-<div class="article">
-
-<img src="${post.img}">
-
-<h3>${post.title}</h3>
-
-<p>${post.text}</p>
-
-</div>
-
-`fetch("/articles")
+// Then fetch external articles and append
+fetch("/articles")
   .then(res => res.json())
   .then(data => {
-    const container = document.getElementById("news-container");
+    const container = document.getElementById("newsGrid"); // same container
     data.forEach(article => {
       const card = document.createElement("div");
-      card.classList.add("news-card");
+      card.classList.add("article"); // keep same styling
 
       card.innerHTML = `
         <img src="${article.image}" alt="">
@@ -59,13 +52,10 @@ newsGrid.innerHTML+=`
 
       container.appendChild(card);
     });
-  });
+  })
+  .catch(err => console.error("Failed to fetch articles:", err));
 
-})
-
+// Dark mode toggle
 function toggleDark(){
-
-document.body.classList.toggle("dark")
-
-
+  document.body.classList.toggle("dark");
 }
