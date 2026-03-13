@@ -64,8 +64,8 @@ footer{background:#111;color:white;text-align:center;padding:20px;}
 </footer>
 
 <script>
-/* ---------- STATIC FALLBACK ARTICLES ---------- */
-const fallbackArticles = [
+// Your static news articles
+const articles = [
   {title:"Celebrity Breakup Shocks Fans",category:"celebrity",image:"https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",text:"Fans react to a shocking celebrity breakup trending online."},
   {title:"New TikTok Dance Challenge Goes Viral",category:"tiktok",image:"https://images.unsplash.com/photo-1605810230434-7631ac76ec81",text:"Millions join a viral TikTok dance trend."},
   {title:"Fashion Models Take Over Paris",category:"fashion",image:"https://images.unsplash.com/photo-1490481651871-ab68de25d43d",text:"Paris fashion week highlights stunning runway looks."},
@@ -76,72 +76,51 @@ const fallbackArticles = [
   {title:"Luxury Lifestyle Rising",category:"lifestyle",image:"https://images.unsplash.com/photo-1506744038136-46273834b3fb",text:"Luxury travel and lifestyle trends increase."}
 ];
 
-/* ---------- DISPLAY FUNCTION ---------- */
+let currentArticles = articles;
+
+// Display articles function
 function displayArticles(data){
   const container = document.getElementById("news-container");
   container.innerHTML = "";
-  data.forEach((a)=>{
+  data.forEach(a => {
     container.innerHTML += `
       <div class="card">
-        <img src="${a.urlToImage || a.image || 'https://via.placeholder.com/400x200?text=No+Image'}">
+        <img src="${a.image}">
         <div class="card-content">
           <h3>${a.title}</h3>
-          <p>${a.description || a.text}</p>
-          <a href="${a.url || '#'}" target="_blank">Read More</a>
+          <p>${a.text}</p>
         </div>
       </div>
     `;
   });
 }
 
-/* ---------- NEWS API SETUP ---------- */
-const apiKey = "89a3ba312d4b429d9740e60acb7e5b69"; // Your NewsAPI key
-const apiBase = "https://newsapi.org/v2/top-headlines?country=us&pageSize=20&apiKey=" + apiKey;
-
-let currentArticles = []; // stores the latest articles (API or fallback)
-
-/* ---------- LOAD NEWS FUNCTION ---------- */
-async function loadNews(category="general"){
-  try {
-    let url = apiBase;
-    if(category && category !== "general" && category !== "all") url += `&category=${category}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    if(data.articles && data.articles.length > 0){
-      currentArticles = data.articles;
-      displayArticles(currentArticles);
-    } else {
-      currentArticles = fallbackArticles;
-      displayArticles(currentArticles);
-    }
-  } catch(err){
-    console.error("API fetch failed, using fallback:", err);
-    currentArticles = fallbackArticles;
-    displayArticles(currentArticles);
-  }
-}
-
-/* ---------- CATEGORY FILTER ---------- */
+// Filter by category
 function showCategory(category){
-  if(category==="all") category="general";
-  loadNews(category);
+  if(category==="all"){
+    currentArticles = articles;
+  } else {
+    currentArticles = articles.filter(a=>a.category===category);
+  }
+  displayArticles(currentArticles);
 }
 
-/* ---------- SEARCH FUNCTION ---------- */
+// Search
 document.getElementById("searchInput").addEventListener("input", function(){
   const keyword = this.value.toLowerCase();
   const filtered = currentArticles.filter(a => 
-    (a.title.toLowerCase().includes(keyword) || (a.text || a.description || "").toLowerCase().includes(keyword))
+    a.title.toLowerCase().includes(keyword) || a.text.toLowerCase().includes(keyword)
   );
   displayArticles(filtered);
 });
 
-/* ---------- INITIAL LOAD ---------- */
-loadNews();
+// Initial display
+displayArticles(articles);
 </script>
 
 </body>
 </html>
+
 
 
 
