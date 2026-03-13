@@ -55,34 +55,35 @@ nav a:hover{color:#00bcd4}
 }
 
 /* GRID */
-#news-container{
+#newsGrid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:20px;
 }
 
 /* CARD */
-.card{
+.article{
   background:white;
   border-radius:10px;
   overflow:hidden;
   box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  padding-bottom:10px;
 }
-.card img{
+.article img{
   width:100%;
   height:170px;
   object-fit:cover;
 }
-.card-content{padding:15px;}
-.card h3{margin:0 0 10px;}
-.card p{font-size:14px;color:#555}
+.article h3{margin:10px 15px 5px;}
+.article p{font-size:14px;color:#555; padding:0 15px;}
+.article a{display:block; padding:5px 15px; color:#00bcd4; text-decoration:none;}
+.article a:hover{text-decoration:underline;}
 
 /* SIDEBAR */
 .sidebar{
   background:white;
   padding:15px;
   border-radius:10px;
-  cursor:pointer;
 }
 
 /* FOOTER */
@@ -103,18 +104,18 @@ footer{
 <body>
 
 <header>
-<div class="logo">Trendaura</div>
-<nav>
-  <a onclick="showCategory('all')">Home</a>
-  <a onclick="showCategory('celebrity')">Celebrities</a>
-  <a onclick="showCategory('tiktok')">TikTok</a>
-  <a onclick="showCategory('fashion')">Fashion</a>
-  <a onclick="showCategory('crypto')">Crypto</a>
-  <a onclick="showCategory('technology')">Technology</a>
-  <a onclick="showCategory('finance')">Finance</a>
-  <a onclick="showCategory('health')">Health</a>
-  <a onclick="showCategory('lifestyle')">Lifestyle</a>
-</nav>
+  <div class="logo">Trendaura</div>
+  <nav>
+    <a onclick="showCategory('home')">Home</a>
+    <a onclick="showCategory('celebrities')">Celebrities</a>
+    <a onclick="showCategory('tiktok')">TikTok</a>
+    <a onclick="showCategory('fashion')">Fashion</a>
+    <a onclick="showCategory('crypto')">Crypto</a>
+    <a onclick="showCategory('technology')">Technology</a>
+    <a onclick="showCategory('finance')">Finance</a>
+    <a onclick="showCategory('health')">Health</a>
+    <a onclick="showCategory('lifestyle')">Lifestyle</a>
+  </nav>
 </header>
 
 <div class="search-bar">
@@ -122,68 +123,131 @@ footer{
 </div>
 
 <div class="container">
-<div id="news-container"></div>
-<div class="sidebar">
-<h3>🔥 Trending Topics</h3>
-<div onclick="showCategory('celebrity')">Celebrity Breakups</div>
-<div onclick="showCategory('tiktok')">TikTok Challenges</div>
-<div onclick="showCategory('crypto')">Crypto Markets</div>
-<div onclick="showCategory('fashion')">Fashion Models</div>
-<div onclick="showCategory('technology')">AI Technology</div>
-</div>
+  <div id="newsGrid"></div>
+  <div class="sidebar">
+    <h3>🔥 Trending Topics</h3>
+    <div onclick="showCategory('celebrity breakups')">Celebrity Breakups</div>
+    <div onclick="showCategory('tiktok challenges')">TikTok Challenges</div>
+    <div onclick="showCategory('crypto markets')">Crypto Markets</div>
+    <div onclick="showCategory('fashion models')">Fashion Models</div>
+    <div onclick="showCategory('ai technology')">AI Technology</div>
+  </div>
 </div>
 
-<footer>© 2026 Trendaura</footer>
+<footer>
+  © 2026 Trendaura
+</footer>
 
 <script>
-let articles = [
-  {title:"Celebrity Breakup Shocks Fans", category:"celebrity", image:"https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e", text:"Fans react to a shocking celebrity breakup trending online."},
-  {title:"New TikTok Dance Challenge Goes Viral", category:"tiktok", image:"https://images.unsplash.com/photo-1605810230434-7631ac76ec81", text:"Millions join a viral TikTok dance trend."},
-  {title:"Fashion Models Take Over Paris", category:"fashion", image:"https://images.unsplash.com/photo-1490481651871-ab68de25d43d", text:"Paris fashion week highlights stunning runway looks."},
-  {title:"Bitcoin Surges Again", category:"crypto", image:"https://images.unsplash.com/photo-1621761191319-c6fb62004040", text:"Crypto markets surge as Bitcoin rises."},
-  {title:"AI Technology Changing the World", category:"technology", image:"https://images.unsplash.com/photo-1518770660439-4636190af475", text:"Artificial intelligence continues to disrupt industries."},
-  {title:"Finance Tips for 2026", category:"finance", image:"https://images.unsplash.com/photo-1554224155-6726b3ff858f", text:"Experts share smart money strategies."},
-  {title:"Healthy Lifestyle Trends", category:"health", image:"https://images.unsplash.com/photo-1490645935967-10de6ba17061", text:"Nutrition and wellness trends growing worldwide."},
-  {title:"Luxury Lifestyle Rising", category:"lifestyle", image:"https://images.unsplash.com/photo-1506744038136-46273834b3fb", text:"Luxury travel and lifestyle trends increase."}
+// --- Local posts ---
+const posts = [
+  {title:"📱 New TikTok Trend Taking Over", text:"A new challenge is spreading across social media.", img:"https://picsum.photos/400/200?1", category:"tiktok", url:"https://www.tiktok.com"},
+  {title:"⭐ Celebrity Breakup Shocks Fans", text:"Fans react to shocking celebrity relationship news.", img:"https://picsum.photos/400/200?2", category:"celebrity", url:"https://www.tmz.com"},
+  {title:"🎬 New Movie Trailer Trends Worldwide", text:"A blockbuster trailer dominates social media.", img:"https://picsum.photos/400/200?3", category:"entertainment", url:"https://www.imdb.com"},
+  {title:"🎵 Viral Song Breaks Streaming Records", text:"A new song is dominating TikTok and Spotify.", img:"https://picsum.photos/400/200?4", category:"music", url:"https://www.spotify.com"}
 ];
 
-const container = document.getElementById("news-container");
+const newsGrid = document.getElementById("newsGrid");
 
-// Display articles
-function displayArticles(data){
-  container.innerHTML = "";
-  data.forEach((a, index) => {
-    container.innerHTML += `
-      <div class="card">
-        <img src="${a.image}">
-        <div class="card-content">
-          <h3>${a.title}</h3>
-          <p>${a.text}</p>
-          <a href="article.html?id=${index}">Read More</a>
-        </div>
+// Render initial posts
+posts.forEach(post => {
+  newsGrid.innerHTML += `
+    <div class="article">
+      <img src="${post.img}" alt="">
+      <h3>${post.title}</h3>
+      <p>${post.text}</p>
+      <a href="${post.url}" target="_blank">Read More</a>
+    </div>
+  `;
+});
+
+// Fetch external articles
+fetch("/articles")
+  .then(res => res.json())
+  .then(data => {
+    data.forEach(article => {
+      const card = document.createElement("div");
+      card.classList.add("article");
+      card.innerHTML = `
+        <img src="${article.image}" alt="">
+        <h3>${article.title}</h3>
+        <p>${article.content.substring(0,100)}...</p>
+        <a href="article.html?id=${article.id}" target="_blank">Read More</a>
+      `;
+      newsGrid.appendChild(card);
+    });
+  })
+  .catch(err => console.error("Failed to fetch articles:", err));
+
+// Dark mode toggle
+function toggleDark(){ document.body.classList.toggle("dark"); }
+
+// --- Category Mapping ---
+const categoryMap = {
+  "home":"all","celebrities":"celebrity","tiktok":"tiktok",
+  "fashion":"fashion","crypto":"crypto","technology":"technology",
+  "finance":"finance","health":"health","lifestyle":"lifestyle",
+  "celebrity breakups":"celebrity","tiktok challenges":"tiktok",
+  "crypto markets":"crypto","fashion models":"fashion","ai technology":"technology",
+  "movies":"entertainment","music":"music"
+};
+
+// Filter by category
+function showCategory(label){
+  const category = categoryMap[label.toLowerCase()] || "all";
+
+  // Filter local posts
+  const filteredLocal = (category === "all") ? posts : posts.filter(p => p.category.toLowerCase()===category.toLowerCase());
+
+  // Clear container
+  newsGrid.innerHTML = "";
+
+  // Display local posts
+  filteredLocal.forEach(post => {
+    newsGrid.innerHTML += `
+      <div class="article">
+        <img src="${post.img}" alt="">
+        <h3>${post.title}</h3>
+        <p>${post.text}</p>
+        <a href="${post.url}" target="_blank">Read More</a>
       </div>
     `;
   });
+
+  // Display API articles
+  fetch("/articles")
+    .then(res => res.json())
+    .then(data => {
+      data.filter(a => category==="all" || a.category.toLowerCase()===category.toLowerCase())
+          .forEach(article => {
+            const card = document.createElement("div");
+            card.classList.add("article");
+            card.innerHTML = `
+              <img src="${article.image}" alt="">
+              <h3>${article.title}</h3>
+              <p>${article.content.substring(0,100)}...</p>
+              <a href="article.html?id=${article.id}" target="_blank">Read More</a>
+            `;
+            newsGrid.appendChild(card);
+          });
+    }).catch(err=>console.error("Failed to fetch articles:", err));
 }
 
-// Initial display
-displayArticles(articles);
-
-// Category filter
-function showCategory(category){
-  if(category === "all"){
-    displayArticles(articles);
-    return;
-  }
-  const filtered = articles.filter(a => a.category === category);
-  displayArticles(filtered);
-}
-
-// Search filter
+// --- Search ---
 document.getElementById("searchInput").addEventListener("input", function(){
   const keyword = this.value.toLowerCase();
-  const filtered = articles.filter(a => a.title.toLowerCase().includes(keyword) || a.text.toLowerCase().includes(keyword));
-  displayArticles(filtered);
+  const filtered = posts.filter(p=>p.title.toLowerCase().includes(keyword)||p.text.toLowerCase().includes(keyword));
+  newsGrid.innerHTML = "";
+  filtered.forEach(post=>{
+    newsGrid.innerHTML += `
+      <div class="article">
+        <img src="${post.img}" alt="">
+        <h3>${post.title}</h3>
+        <p>${post.text}</p>
+        <a href="${post.url}" target="_blank">Read More</a>
+      </div>
+    `;
+  });
 });
 </script>
 
